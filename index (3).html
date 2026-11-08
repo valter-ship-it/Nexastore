@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nexa Store – Eletrónicos</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 rx=%2711%27 fill=%27%234f46e5%27/%3E%3Cpath d=%27M12 29V12l16 17V12%27 fill=%27none%27 stroke=%27white%27 stroke-width=%274%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;800&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f5ff; --ink:#1e1b4b; --muted:#5f5b8a; --white:#fff;
+    --indigo:#4f46e5; --pink:#ec4899; --coral:#ff6b6b; --mint:#2dd4bf; --sun:#fbbf24;
+    --line:#e3e1f7; --radius:22px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Nunito Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  h1,h2,h3,.logo{font-family:"Sora",system-ui,sans-serif;letter-spacing:-.02em}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+  /* Cabeçalho */
+  header{position:sticky;top:0;z-index:20;background:rgba(246,245,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .logo{font-size:1.4rem;font-weight:800;display:flex;align-items:center;gap:8px}
+  .logo .mark{width:38px;height:38px;flex:none}
+  .logo span{background:linear-gradient(90deg,var(--indigo),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+  nav{display:flex;gap:26px;font-weight:600;font-size:.95rem;color:var(--muted)}
+  nav a:hover{color:var(--indigo)}
+
+  /* Hero */
+  .hero{margin-top:26px;border-radius:32px;overflow:hidden;position:relative;color:#fff;
+    background:radial-gradient(circle at 80% 20%,#ec4899 0,transparent 45%),linear-gradient(135deg,#312e81,#4f46e5 60%,#7c3aed);
+    display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:460px}
+  .hero .text{padding:56px 0 56px 56px;position:relative;z-index:2}
+  .tag{display:inline-block;background:var(--sun);color:var(--ink);font-weight:800;font-family:"Sora",sans-serif;font-size:.8rem;padding:6px 14px;border-radius:999px;margin-bottom:18px}
+  .hero h1{font-size:clamp(2.1rem,4.6vw,3.5rem);line-height:1.05;margin-bottom:16px}
+  .hero p{color:#dcd9ff;font-size:1.08rem;max-width:44ch;margin-bottom:26px}
+  .btn{display:inline-block;background:#fff;color:var(--indigo);font-family:"Sora",sans-serif;font-weight:800;padding:14px 26px;border-radius:14px;transition:transform .15s}
+  .btn:hover{transform:translateY(-3px)}
+  .stage{position:relative;height:100%;min-height:380px}
+  .stage svg{position:absolute;filter:drop-shadow(0 18px 24px rgba(10,5,60,.35))}
+  .s-phone{width:230px;height:230px;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-6deg)}
+  .s-spk{width:150px;height:150px;left:6%;bottom:10%;transform:rotate(-8deg)}
+  .s-hp{width:150px;height:150px;right:6%;top:10%;transform:rotate(8deg)}
+  .blob{position:absolute;border-radius:50%;background:rgba(255,255,255,.1)}
+  .b1{width:260px;height:260px;right:-60px;bottom:-80px}.b2{width:120px;height:120px;left:40%;top:-40px}
+
+  /* Secções */
+  section{padding:56px 0 8px}
+  .head{margin-bottom:22px}
+  .head h2{font-size:clamp(1.6rem,3vw,2.1rem)}
+  .head p{color:var(--muted)}
+
+  /* Filtros (CSS puro) */
+  .filter{position:absolute;opacity:0;pointer-events:none}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+  .chip{background:#fff;border:2px solid var(--line);padding:9px 20px;border-radius:999px;font-weight:600;cursor:pointer;user-select:none}
+  .chip:hover{border-color:var(--indigo)}
+  #f-todos:checked ~ .chips [for=f-todos],#f-tel:checked ~ .chips [for=f-tel],
+  #f-port:checked ~ .chips [for=f-port],#f-audio:checked ~ .chips [for=f-audio],
+  #f-acc:checked ~ .chips [for=f-acc]{background:var(--indigo);border-color:var(--indigo);color:#fff}
+  #f-todos:focus-visible ~ .chips [for=f-todos],#f-tel:focus-visible ~ .chips [for=f-tel],
+  #f-port:focus-visible ~ .chips [for=f-port],#f-audio:focus-visible ~ .chips [for=f-audio],
+  #f-acc:focus-visible ~ .chips [for=f-acc]{outline:3px solid var(--pink);outline-offset:3px}
+  #f-tel:checked ~ .grid .card:not(.tel),#f-port:checked ~ .grid .card:not(.port),
+  #f-audio:checked ~ .grid .card:not(.audio),#f-acc:checked ~ .grid .card:not(.acc){display:none}
+
+  /* Produtos */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px}
+  .card{background:#fff;border-radius:var(--radius);border:1px solid var(--line);overflow:hidden;box-shadow:0 6px 18px rgba(79,70,229,.06)}
+  .pic{height:200px;display:grid;place-items:center;position:relative}
+  .pic svg{width:150px;height:150px;filter:drop-shadow(0 10px 12px rgba(30,27,75,.25))}
+  .g1{background:linear-gradient(135deg,#c7d2fe,#e0e7ff)}.g2{background:linear-gradient(135deg,#a7f3d0,#ccfbf1)}
+  .g3{background:linear-gradient(135deg,#fecaca,#ffe4e6)}.g4{background:linear-gradient(135deg,#fde68a,#fef3c7)}
+  .g5{background:linear-gradient(135deg,#fbcfe8,#fce7f3)}.g6{background:linear-gradient(135deg,#bae6fd,#e0f2fe)}
+  .pic img{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover}
+  img[src=""]{display:none}
+  .off{z-index:2;position:absolute;top:14px;left:14px;background:var(--coral);color:#fff;font-weight:800;font-size:.78rem;padding:4px 11px;border-radius:999px;font-family:"Sora",sans-serif}
+  .info{padding:18px 20px 22px}
+  .cat{color:var(--indigo);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}
+  .info h3{font-size:1.1rem;margin:2px 0 4px}
+  .info p{color:var(--muted);font-size:.92rem;min-height:3em}
+  .price{margin-top:10px;display:flex;align-items:baseline;gap:10px}
+  .price b{font-family:"Sora",sans-serif;font-size:1.3rem}
+  .price s{color:#9a97bd;font-size:.9rem}
+
+  /* Vantagens */
+  .perks{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .perk{border-radius:var(--radius);padding:28px;color:#fff}
+  .perk:nth-child(1){background:linear-gradient(135deg,#4f46e5,#7c3aed)}
+  .perk:nth-child(2){background:linear-gradient(135deg,#ec4899,#ff6b6b)}
+  .perk:nth-child(3){background:linear-gradient(135deg,#0d9488,#2dd4bf)}
+  .perk h3{font-size:1.15rem;margin-bottom:6px}
+  .perk p{opacity:.92;font-size:.95rem}
+
+  /* Promo */
+  .promo{margin-top:56px;background:var(--ink);color:#fff;border-radius:28px;padding:40px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .promo h2{font-size:1.7rem}
+  .promo p{color:#b9b6e6}
+  .promo .big{font-family:"Sora",sans-serif;font-weight:800;font-size:2.6rem;color:var(--sun)}
+
+  footer{margin-top:56px;border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:.9rem}
+  footer .row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+  @media (max-width:820px){
+    nav{display:none}
+    .hero{grid-template-columns:1fr}
+    .hero .text{padding:40px 28px 0}
+    .stage{min-height:300px}
+    .s-phone{width:190px;height:190px}.s-spk,.s-hp{width:110px;height:110px}
+    .perks{grid-template-columns:1fr}
+    .promo{padding:28px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<!-- Ilustrações (desenhos em SVG, reutilizados nos produtos) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#ec4899"/></linearGradient>
+    <linearGradient id="gB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#6366f1"/></linearGradient>
+  </defs>
+  <symbol id="i-phone" viewBox="0 0 120 120">
+    <rect x="34" y="6" width="52" height="108" rx="11" fill="#1e1b4b"/>
+    <rect x="38" y="11" width="44" height="98" rx="8" fill="url(#gA)"/>
+    <rect x="52" y="14" width="16" height="4" rx="2" fill="#1e1b4b"/>
+    <circle cx="60" cy="58" r="15" fill="#fff" opacity=".28"/>
+    <rect x="46" y="92" width="28" height="4" rx="2" fill="#fff" opacity=".65"/>
+  </symbol>
+  <symbol id="i-speaker" viewBox="0 0 120 120">
+    <rect x="28" y="10" width="64" height="100" rx="16" fill="#1e1b4b"/>
+    <circle cx="60" cy="38" r="10" fill="#312e81"/><circle cx="60" cy="38" r="4" fill="#818cf8"/>
+    <circle cx="60" cy="76" r="23" fill="#312e81"/><circle cx="60" cy="76" r="15" fill="#4338ca"/><circle cx="60" cy="76" r="5" fill="#a5b4fc"/>
+  </symbol>
+  <symbol id="i-headphones" viewBox="0 0 120 120">
+    <path d="M26 72V60a34 34 0 0 1 68 0v12" fill="none" stroke="#1e1b4b" stroke-width="8" stroke-linecap="round"/>
+    <rect x="14" y="64" width="26" height="40" rx="11" fill="#ff6b6b"/><rect x="80" y="64" width="26" height="40" rx="11" fill="#ff6b6b"/>
+    <rect x="21" y="73" width="12" height="22" rx="6" fill="#1e1b4b" opacity=".3"/><rect x="87" y="73" width="12" height="22" rx="6" fill="#1e1b4b" opacity=".3"/>
+  </symbol>
+  <symbol id="i-laptop" viewBox="0 0 120 120">
+    <rect x="20" y="24" width="80" height="55" rx="6" fill="#1e1b4b"/>
+    <rect x="24" y="28" width="72" height="47" rx="3" fill="url(#gB)"/>
+    <path d="M8 82h104l-6 10a5 5 0 0 1-4 3H18a5 5 0 0 1-4-3z" fill="#a5b4d0"/>
+    <rect x="50" y="82" width="20" height="3" rx="1.5" fill="#64748b"/>
+  </symbol>
+  <symbol id="i-watch" viewBox="0 0 120 120">
+    <rect x="42" y="4" width="36" height="32" rx="7" fill="#ec4899"/><rect x="42" y="84" width="36" height="32" rx="7" fill="#ec4899"/>
+    <rect x="30" y="28" width="60" height="64" rx="17" fill="#1e1b4b"/><rect x="35" y="33" width="50" height="54" rx="13" fill="url(#gA)"/>
+    <path d="M44 66l8-10 8 6 10-14" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="90" y="52" width="5" height="12" rx="2" fill="#1e1b4b"/>
+  </symbol>
+  <symbol id="i-bank" viewBox="0 0 120 120">
+    <rect x="30" y="20" width="60" height="80" rx="13" fill="#2dd4bf" stroke="#1e1b4b" stroke-width="4"/>
+    <path d="M65 36L51 62h10l-6 20 15-28H60z" fill="#1e1b4b"/>
+    <circle cx="46" cy="92" r="2.5" fill="#1e1b4b"/><circle cx="56" cy="92" r="2.5" fill="#1e1b4b"/><circle cx="66" cy="92" r="2.5" fill="#1e1b4b" opacity=".4"/>
+  </symbol>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <!-- Para usar o teu próprio logo, troca o <svg> abaixo por: <img src="imagens/logo.png" alt="Logo" height="38"> -->
+    <a href="#" class="logo"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="gL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#ec4899"/></linearGradient></defs><rect width="40" height="40" rx="11" fill="url(#gL)"/><path d="M12 29V12l16 17V12" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="31" cy="9" r="3.2" fill="#fbbf24"/></svg>Nexa <span>Store</span></a>
+    <nav>
+      <a href="#produtos">Produtos</a>
+      <a href="#vantagens">Vantagens</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <div class="text">
+      <span class="tag">Até -20% esta semana</span>
+      <h1>A tecnologia que combina contigo.</h1>
+      <p>Telemóveis, colunas, auscultadores e muito mais, com garantia e entrega em todo o país.</p>
+      <a href="#produtos" class="btn">Ver produtos</a>
+    </div>
+    <div class="stage" aria-hidden="true">
+      <span class="blob b1"></span><span class="blob b2"></span>
+      <svg class="s-spk"><use href="#i-speaker"/></svg>
+      <svg class="s-hp"><use href="#i-headphones"/></svg>
+      <svg class="s-phone"><use href="#i-phone"/></svg>
+    </div>
+  </div>
+
+  <section id="produtos">
+    <div class="head">
+      <h2>Os nossos produtos</h2>
+      <p>Escolhe uma categoria para ver só o que procuras.</p>
+    </div>
+
+    <input class="filter" type="radio" name="cat" id="f-todos" checked>
+    <input class="filter" type="radio" name="cat" id="f-tel">
+    <input class="filter" type="radio" name="cat" id="f-port">
+    <input class="filter" type="radio" name="cat" id="f-audio">
+    <input class="filter" type="radio" name="cat" id="f-acc">
+
+    <div class="chips">
+      <label class="chip" for="f-todos">Todos</label>
+      <label class="chip" for="f-tel">Telemóveis</label>
+      <label class="chip" for="f-port">Portáteis</label>
+      <label class="chip" for="f-audio">Som</label>
+      <label class="chip" for="f-acc">Acessórios</label>
+    </div>
+
+    <!-- Foto de cada produto: cola o link entre as aspas de src="" -->
+    <div class="grid">
+      <article class="card tel">
+        <div class="pic g1"><span class="off">-15%</span><svg><use href="#i-phone"/></svg><img src="https://techcentral.co.za/wp-content/uploads/2022/10/huawei-nova-10-pro-1500-800-3.jpg" alt="Smartphone Nova X" onerror="this.remove()"></div>
+        <div class="info"><span class="cat">Telemóvel</span><h3>Smartphone Nova X</h3>
+          <p>128 GB, ecrã de 6,5" e câmara tripla de 50 MP.</p>
+          <div class="price"><b>18.900 MT</b><s>22.200 MT</s></div></div>
+      </article>
+
+      <article class="card port">
+        <div class="pic g2"><svg><use href="#i-laptop"/></svg><img src="https://i.blogs.es/25fdb7/xiaomi-book-pro-14-3/1366_2000.jpeg" alt="Portátil Pro 14" onerror="this.remove()"></div>
+        <div class="info"><span class="cat">Portátil</span><h3>Portátil Pro 14</h3>
+          <p>8 GB de RAM e SSD de 512 GB para estudo e trabalho.</p>
+          <div class="price"><b>42.500 MT</b></div></div>
+      </article>
+
+      <article class="card audio">
+        <div class="pic g3"><span class="off">Novo</span><svg><use href="#i-speaker"/></svg><img src="https://everydaylistening.net/wp-content/uploads/2018/12/yu6-opposed.jpg?w=1020" alt="Coluna Pulse" onerror="this.remove()"></div>
+        <div class="info"><span class="cat">Som</span><h3>Coluna Pulse</h3>
+          <p>Bluetooth, à prova de água e 12 horas de bateria.</p>
+          <div class="price"><b>2.700 MT</b></div></div>
+      </article>
+
+      <article class="card audio">
+        <div class="pic g4"><svg><use href="#i-headphones"/></svg><img src="https://images.wallpaperscraft.com/image/single/headphones_audio_black_134032_6000x4000.jpg" alt="Auscultadores Air" onerror="this.remove()"></div>
+        <div class="info"><span class="cat">Som</span><h3>Auscultadores Air</h3>
+          <p>30 horas de bateria e cancelamento de ruído.</p>
+          <div class="price"><b>3.200 MT</b></div></div>
+      </article>
+
+      <article class="card acc">
+        <div class="pic g5"><span class="off">-10%</span><svg><use href="#i-watch"/></svg><img src="https://i.gadgets360cdn.com/large/mi_band_2_1474446264843.jpeg" alt="Relógio Fit S" onerror="this.remove()"></div>
+        <div class="info"><span class="cat">Acessório</span><h3>Relógio Fit S</h3>
+          <p>Batimentos, passos e notificações no pulso.</p>
+          <div class="price"><b>4.320 MT</b><s>4.800 MT</s></div></div>
+      </article>
+
+      <article class="card acc">
+        <div class="pic g6"><svg><use href="#i-bank"/></svg><img src="https://p.globalsources.com/IMAGES/PDT/B5204086361/power-bank-PD-Power-bank.png" alt="Power Bank 20.000" onerror="this.remove()"></div>
+        <div class="info"><span class="cat">Acessório</span><h3>Power Bank 20.000</h3>
+          <p>Carrega o telemóvel até 5 vezes. Duas portas USB.</p>
+          <div class="price"><b>1.450 MT</b></div></div>
+      </article>
+
+      <article class="card tel">
+        <div class="pic g4"><svg><use href="#i-phone"/></svg><img src="https://tse4.mm.bing.net/th/id/OIP.Q1BksWb64m8hLCIh0h-pQwHaLG?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Smartphone Lite" onerror="this.remove()"></div>
+        <div class="info"><span class="cat">Telemóvel</span><h3>Smartphone Lite</h3>
+          <p>64 GB e bateria de 5.000 mAh. Simples e resistente.</p>
+          <div class="price"><b>8.500 MT</b></div></div>
+      </article>
+
+      <article class="card audio">
+        <div class="pic g1"><svg><use href="#i-speaker"/></svg><img src="https://i.pinimg.com/736x/24/bb/38/24bb3857279c284b5507ee8615addb19.jpg" alt="Coluna Mini" onerror="this.remove()"></div>
+        <div class="info"><span class="cat">Som</span><h3>Coluna Mini</h3>
+          <p>Pequena, leve e com um som surpreendente.</p>
+          <div class="price"><b>1.200 MT</b></div></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="vantagens">
+    <div class="head"><h2>Porquê comprar na Nexa Store</h2></div>
+    <div class="perks">
+      <div class="perk"><h3>Garantia de 12 meses</h3><p>Se avariar, trocamos ou reparamos sem custos.</p></div>
+      <div class="perk"><h3>Entrega em todo o país</h3><p>Recebe em 2 a 5 dias úteis, com acompanhamento.</p></div>
+      <div class="perk"><h3>Pagamento fácil</h3><p>M-Pesa, e-Mola, cartão ou dinheiro na entrega.</p></div>
+    </div>
+  </section>
+
+  <div class="promo">
+    <div><h2>Semana da Tecnologia</h2><p>Descontos em telemóveis, som e acessórios.</p></div>
+    <div class="big">até -20%</div>
+  </div>
+
+</main>
+
+<footer id="contacto">
+  <div class="wrap row">
+    <span>© 2026 Nexa Store. Todos os direitos reservados.</span>
+    <span>Av. 25 de Setembro, Maputo · +258 844612970 · nexastore@yahoo.com.mz</span>
+  </div>
+</footer>
+
+</body>
+</html>
