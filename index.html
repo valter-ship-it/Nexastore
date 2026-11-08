@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nexa Store – Eletrónicos</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 rx=%2711%27 fill=%27%234f46e5%27/%3E%3Cpath d=%27M12 29V12l16 17V12%27 fill=%27none%27 stroke=%27white%27 stroke-width=%274%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
+<title>Nexa Store – Eletrónicos
+Valter Timba</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 rx=%2711%27 fill=%27%234f46e5%27/%3E%3Cpath d=%27M11 12l9 18 9-18%27 fill=%27none%27 stroke=%27white%27 stroke-width=%274%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;800&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -25,10 +26,12 @@
   .bar{display:flex;align-items:center;justify-content:space-between;height:66px}
   .logo{font-size:1.4rem;font-weight:800;display:flex;align-items:center;gap:8px}
   .logo .mark{width:38px;height:38px;flex:none}
-  .logo span{background:linear-gradient(90deg,var(--indigo),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .logo span{color:var(--indigo)}
+  .brand{line-height:1.15}
+  .brand small{display:block;font-family:"Nunito Sans",sans-serif;font-weight:600;font-size:.72rem;letter-spacing:0;color:var(--muted)}
   nav{display:flex;gap:26px;font-weight:600;font-size:.95rem;color:var(--muted)}
   nav a:hover{color:var(--indigo)}
-
+  
   /* Hero */
   .hero{margin-top:26px;border-radius:32px;overflow:hidden;position:relative;color:#fff;
     background:radial-gradient(circle at 80% 20%,#ec4899 0,transparent 45%),linear-gradient(135deg,#312e81,#4f46e5 60%,#7c3aed);
@@ -163,7 +166,7 @@
 <header>
   <div class="wrap bar">
     <!-- Para usar o teu próprio logo, troca o <svg> abaixo por: <img src="imagens/logo.png" alt="Logo" height="38"> -->
-    <a href="#" class="logo"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="gL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#ec4899"/></linearGradient></defs><rect width="40" height="40" rx="11" fill="url(#gL)"/><path d="M12 29V12l16 17V12" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="31" cy="9" r="3.2" fill="#fbbf24"/></svg>Nexa <span>Store</span></a>
+    <a href="#" class="logo"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="gL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#ec4899"/></linearGradient></defs><rect width="40" height="40" rx="11" fill="url(#gL)"/><path d="M11 12l9 18 9-18" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="31" cy="9" r="3.2" fill="#fbbf24"/></svg><div class="brand">Nexa <span>Store</span><small>Valter Timba</small></div></a>
     <nav>
       <a href="#produtos">Produtos</a>
       <a href="#vantagens">Vantagens</a>
@@ -289,6 +292,8 @@
   <div class="wrap row">
     <span>© 2026 Nexa Store. Todos os direitos reservados.</span>
     <span>Av. 25 de Setembro, Maputo · +258 844612970 · nexastore@yahoo.com.mz</span>
+    <span>Desenvolvido Por Valter Roberto Pedro Timba 
+    PAW4 IMEP</span>
   </div>
 </footer>
 
